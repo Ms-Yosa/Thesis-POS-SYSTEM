@@ -93,7 +93,7 @@ return [
         'mongodb' => [
             'driver' => 'mongodb',
             'dsn' => env('DB_DSN'),
-            'database' => env('DB_DATABASE', 'homestead'),
+            'database' => env('DB_DATABASE'),
         ],
 
 

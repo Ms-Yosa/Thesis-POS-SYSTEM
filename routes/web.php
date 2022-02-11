@@ -2,6 +2,11 @@
 
 use Illuminate\Support\Facades\Route;
 
+
+use App\Http\Controllers\Cashier\CashierController;
+use App\Http\Controllers\Admin\AdminController;
+use Illuminate\Support\Facades\Auth;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -20,3 +25,16 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+
+Route::middleware(['middleware'=>'PreventBackHistory'])->group(function(){
+    Auth::routes();
+});
+
+Route::group(['prefix'=>'admin', 'middleware'=>['isAdmin','auth','PreventBackHistory']], function(){
+    Route::get('/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
+});
+
+Route::group(['prefix'=>'cashier', 'middleware'=>['isCashier','auth','PreventBackHistory']], function(){
+    Route::get('/dashboard', [CashierController::class, 'index'])->name('cashier.dashboard');
+});

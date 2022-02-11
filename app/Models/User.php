@@ -26,6 +26,7 @@ class User extends Eloquent implements AuthenticatableContract
     protected $fillable = [
         'name',
         'email',
+        'role',
         'password',
     ];
 

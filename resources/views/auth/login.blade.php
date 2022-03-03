@@ -6,9 +6,16 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">{{ __('Login') }}</div>
-
+                {!! Toastr::message() !!}
                 <div class="card-body">
                     <form method="POST" action="{{ route('login') }}">
+
+                    
+                    @if (Session::get('fail'))
+                        <div class="alert alert-danger">
+                            {{ Session::get('fail') }}
+                        </div>
+                    @endif
                         @csrf
 
                         <div class="row mb-3">

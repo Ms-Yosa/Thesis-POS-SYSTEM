@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Brian2694\Toastr\Facades\Toastr;
 
 use Illuminate\Http\Request;
 
@@ -32,6 +33,7 @@ class LoginController extends Controller
 
     protected function redirectTo(){
         if(Auth()->user()->role=="admin"){
+            Toastr::success('Something went wrong, failed to register', 'Success');
             return route('admin.dashboard');
         }
         elseif(Auth()->user()->role=="cashier"){
@@ -52,19 +54,23 @@ class LoginController extends Controller
     public function login(Request $request){
         $input = $request->all();
         $this->validate($request,[
-        'email'=>'required|email',
+        'email'=>'required|email|exists:users,email',
         'password'=>'required'
+        ],[
+            'email.exists'=>'This email does not exists in admins table'
         ]);
 
         if(auth()->attempt(array('email'=>$input['email'], 'password'=>$input['password']))){
             if(auth()->user()->role=='admin'){
+                Toastr::success('Something went wrong, failed to register', 'Success');
                 return redirect()->route('admin.dashboard');
             }elseif(auth()->user()->role=='cashier'){
                 return redirect()->route('cashier.dashboard');
             }
 
         }else{
-            return redirect()->route('login')->with('error','Email and Password are wrong');
+            Toastr::error('Something went wrong, failed to register', 'Error');
+            return redirect()->back();
         }
     }
 }

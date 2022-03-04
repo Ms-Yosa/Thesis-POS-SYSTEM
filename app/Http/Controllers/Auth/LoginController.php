@@ -33,10 +33,11 @@ class LoginController extends Controller
 
     protected function redirectTo(){
         if(Auth()->user()->role=="admin"){
-            Toastr::success('Something went wrong, failed to register', 'Success');
+            Toastr::success('Login Successfully', 'Success');
             return route('admin.dashboard');
         }
         elseif(Auth()->user()->role=="cashier"){
+            Toastr::success('Login Successfully', 'Success');
             return route('cashier.dashbord');
         }
     }

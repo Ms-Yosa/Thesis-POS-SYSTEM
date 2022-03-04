@@ -6,6 +6,18 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">{{ __('Admin Dashboard') }}</div>
+                <a href="{{ route('register') }}" class="btn btn-primary"><li class=
+"la la-user-plus"></li>  Add new</a>
+<a class="dropdown-item" href="{{ route('logout') }}"
+                                       onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                        {{ __('Logout') }}
+                                    </a>
+
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                        @csrf
+                                    </form>
+                {!! Toastr::message() !!}
                 <h4>Hi Admin: {{ Auth::user()->name }}</h4>
                 <div class="card-body">
                     @if (session('status'))

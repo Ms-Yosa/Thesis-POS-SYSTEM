@@ -62,8 +62,7 @@ class LoginController extends Controller
         ]);
 
         if(auth()->attempt(array('email'=>$input['email'], 'password'=>$input['password']))){
-            if(auth()->user()->role=='admin'){
-                Toastr::success('Something went wrong, failed to register', 'Success');
+            if(auth()->user()->role=='admin'){  
                 return redirect()->route('admin.dashboard');
             }elseif(auth()->user()->role=='cashier'){
                 return redirect()->route('cashier.dashboard');

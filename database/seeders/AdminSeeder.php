@@ -25,5 +25,14 @@ class AdminSeeder extends Seeder
             'phone_number' => '09887665543',
             'password' => Hash::make('password'),
         ]);
+
+        DB::table('users')->insert([
+            'name' => 'John',
+            'last_name' => 'Doe',
+            'email' => 'cashier@gmail.com',
+            'role' => 'cashier',
+            'phone_number' => '09887665543',
+            'password' => Hash::make('password'),
+        ]);
     }
 }

@@ -37,7 +37,7 @@ class LoginController extends Controller
             return route('admin.dashboard');
         }
         elseif(Auth()->user()->role=="cashier"){
-            Toastr::success('Login Successfully', 'Success');
+            
             return route('cashier.dashbord');
         }
     }
@@ -65,6 +65,7 @@ class LoginController extends Controller
             if(auth()->user()->role=='admin'){  
                 return redirect()->route('admin.dashboard');
             }elseif(auth()->user()->role=='cashier'){
+                Toastr::success('Login Successfully', 'Success');
                 return redirect()->route('cashier.dashboard');
             }
 
